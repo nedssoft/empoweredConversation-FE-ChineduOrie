@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { primary as primary_color, black as black_color } from './variables'
 
 export const background = css`
@@ -28,4 +28,7 @@ export const CustomNavLink = styled(NavLink)`
     color: ${primary_color};
     border-bottom-width: 100%;
   }
+`
+export const CustomLink = styled(Link)`
+  text-decoration: none;
 `
