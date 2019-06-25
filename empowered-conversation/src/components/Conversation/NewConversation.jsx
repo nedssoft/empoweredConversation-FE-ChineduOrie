@@ -26,7 +26,7 @@ class NewConversation extends React.Component {
         survivorPhone: "",
         ffName: "",
         ffPhone: "",
-        categororyId: ""
+        categoryId: ""
       },
       errors: {
         survivorName: "",
