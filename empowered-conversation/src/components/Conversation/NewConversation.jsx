@@ -64,7 +64,7 @@ class NewConversation extends React.Component {
         break;
       case "categoryId":
         errors.categoryId =
-          value === "" ? "Select the category of the Assault" : "";
+          value === "" ? "Select the conversation category" : "";
         break;
       default:
         break;
