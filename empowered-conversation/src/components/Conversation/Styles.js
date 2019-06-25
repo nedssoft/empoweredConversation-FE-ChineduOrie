@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { background, responsiveWidth } from '../styled/reusables'
-import { primary } from '../styled/variables'
+import { primary, danger } from '../styled/variables'
 
 export const Wrapper = styled.div`
   ${background};
@@ -70,7 +70,7 @@ export const Bar = styled.span`
   position: absolute;
   left: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: ${props => props.invalid ? danger : 'rgba(0, 0, 0, 0.1)'};
   width: 100%;
   height: 1px;
   &::before {

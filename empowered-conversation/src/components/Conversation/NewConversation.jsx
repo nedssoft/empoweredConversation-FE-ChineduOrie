@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   Wrapper,
   Container,
@@ -15,34 +16,54 @@ import {
   Submit
 } from "./Styles";
 
+import Spinner from "../UI/Spinner/Spinner";
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
 import Modal from "../UI/Modal/Modal";
 
+const initialForm = {
+  survivorName: "",
+  survivorPhone: "",
+  ffName: "",
+  ffPhone: "",
+  categoryId: ""
+};
+const initialError = {
+  survivorName: "",
+  survivorPhone: "",
+  ffName: "",
+  ffPhone: "",
+  categoryId: "Select the category of the Assault"
+};
+const BASE_URL = "https://emp-convo.herokuapp.com";
 class NewConversation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: {
-        survivorName: "",
-        survivorPhone: "",
-        ffName: "",
-        ffPhone: "",
-        categoryId: ""
-      },
-      errors: {
-        survivorName: "",
-        survivorPhone: "",
-        ffName: "",
-        ffPhone: "",
-        categoryId: "Select the category of the Assault"
-      },
+      form: initialForm,
+      errors: initialError,
       formValid: true,
-      extractedErrors: null,
+      extractedErrors: ["ensure that all fields are filled"],
       showErrorModal: false,
-      showConsentModal: false
+      showConsentModal: false,
+      categories: [],
+      showSuccessModal: false,
+      successMessage: "",
+      isLoading: false
     };
   }
-
+  componentDidMount() {
+    axios
+      .get(`${BASE_URL}/categories`)
+      .then(res => {
+        this.setState(prevState => ({
+          ...prevState,
+          categories: res.data
+        }));
+      })
+      .catch(() => {
+        return;
+      });
+  }
   inputChangeHandler = e => {
     const { name, value } = e.target;
     const { errors } = this.state;
@@ -64,7 +85,7 @@ class NewConversation extends React.Component {
         break;
       case "categoryId":
         errors.categoryId =
-          value === "" ? "Select the category of the Assault" : "";
+          value === "" ? "Select the conversation category" : "";
         break;
       default:
         break;
@@ -103,10 +124,14 @@ class NewConversation extends React.Component {
     } else {
       this.setState(prevState => ({
         ...prevState,
-        showConsentModal: true
+        showConsentModal: true,
+        errors: {
+          ...initialError
+        }
       }));
     }
   };
+
   toggleErrorModal = () => {
     this.setState(prevState => ({
       ...prevState,
@@ -120,26 +145,73 @@ class NewConversation extends React.Component {
     }));
   };
   submitConversation = () => {
-    const { form } = this.state;
-    console.log(form)
-    alert("conversation submitted successfully");
     this.setState(prevState => ({
       ...prevState,
-      showConsentModal: false
-    }))
+      showConsentModal: false,
+      isLoading: true,
+    }));
+    const { form } = this.state;
+    const { survivorName, survivorPhone, ffName, ffPhone, categoryId } = form;
+    const newConversation = {
+      survivorname: survivorName,
+      survivornumber: survivorPhone,
+      ffname: ffName,
+      ffnumber: ffPhone,
+      category: {
+        categoryid: categoryId
+      }
+    };
+    axios
+      .post(`${BASE_URL}/conversations`, newConversation)
+      .then(res => {
+        this.setState(prevState => ({
+          ...prevState,
+          successMessage: res.data.ffname,
+          showSuccessModal: true,
+          isLoading: false,
+        }));
+      })
+      .catch(err => {
+        this.setState(prevState => ({
+          ...prevState,
+          extractedErrors: [err.message],
+          showErrorModal: true,
+          isLoading: false,
+        }));
+      });
+  };
+  toggleSuccessModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      successMessage: "",
+      showSuccessModal: false,
+      form: { ...initialForm }
+    }));
   };
   render() {
     const {
       form,
+      errors,
       formValid,
       showErrorModal,
       extractedErrors,
-      showConsentModal
+      showConsentModal,
+      categories,
+      showSuccessModal,
+      successMessage,
+      isLoading
     } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone } = form;
-
+    const {
+      survivorName: sNError,
+      survivorPhone: sPError,
+      ffName: ffNError,
+      ffPhone: ffPError,
+      categoryId: catError
+    } = errors;
     return (
       <Wrapper>
+        {isLoading && <Spinner />}
         {!formValid && (
           <Modal
             show={showErrorModal}
@@ -166,6 +238,24 @@ class NewConversation extends React.Component {
             <p>By Clicking Continue, you agree by the terms and condition</p>
           </Modal>
         }
+        {
+          <Modal
+            show={showSuccessModal}
+            toggle={this.toggleSuccessModal}
+            clicked={this.toggleSuccessModal}
+            modalTitle="Success"
+            modalType="ok"
+          >
+            {successMessage && (
+              <p>
+                {`${successMessage}
+                  has been notified, you'll be content when
+                he/she is ready for thr conversation`}
+              </p>
+            )}
+          </Modal>
+        }
+
         <Container>
           <FormHeader>
             <Img src={logo} alt="" />
@@ -183,7 +273,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorName}
                 />
-                <Bar />
+                <Bar invalid={sNError} />
               </InputGroup>
               <InputGroup>
                 <Label>Your Phone Number</Label>
@@ -195,7 +285,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorPhone}
                 />
-                <Bar />
+                <Bar invalid={sPError} />
               </InputGroup>
             </Row>
             <Row>
@@ -209,7 +299,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffName}
                 />
-                <Bar />
+                <Bar invalid={ffNError} />
               </InputGroup>
               <InputGroup>
                 <Label>Friend/Family Phone Number</Label>
@@ -221,17 +311,21 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffPhone}
                 />
-                <Bar />
+                <Bar invalid={ffPError} />
               </InputGroup>
             </Row>
             <Row>
               <InputGroup>
                 <Select onChange={this.inputChangeHandler} name="categoryId">
                   <option value="">Select Category</option>
-                  <option value="1">Harassment</option>
-                  <option value="2">Rape</option>
+                  {categories &&
+                    categories.map(cat => (
+                      <option value={cat.categoryid} key={cat.categoryid}>
+                        {cat.categoryname}
+                      </option>
+                    ))}
                 </Select>
-                <Bar />
+                <Bar invalid={catError} />
               </InputGroup>
             </Row>
             <Row>
