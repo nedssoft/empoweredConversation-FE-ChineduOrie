@@ -27,6 +27,9 @@ class NewConversation extends React.Component {
     const label = target.parentNode.querySelector('label')
     label.style.display = 'block'
   }
+  submitHandler = (e) => {
+    e.preventDefault()
+  }
   render() {
     return (
       <Wrapper>
@@ -35,7 +38,7 @@ class NewConversation extends React.Component {
             <Img src={logo} alt="" />
             <H3>Start a Conversation</H3>
           </FormHeader>
-          <Form autoComplete="off">
+          <Form autoComplete="off" onSubmit={this.submitHandler}>
             <Row>
               <InputGroup>
                 <Label>Your Name</Label>
