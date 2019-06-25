@@ -121,23 +121,30 @@ class NewConversation extends React.Component {
   };
   submitConversation = () => {
     const { form } = this.state;
-    console.log(form)
+    console.log(form);
     alert("conversation submitted successfully");
     this.setState(prevState => ({
       ...prevState,
       showConsentModal: false
-    }))
+    }));
   };
   render() {
     const {
       form,
+      errors,
       formValid,
       showErrorModal,
       extractedErrors,
       showConsentModal
     } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone } = form;
-
+    const {
+      survivorName: sNError,
+      survivorPhone: sPError,
+      ffName: ffNError,
+      ffPhone: ffPError,
+      categoryId: catError
+    } = errors;
     return (
       <Wrapper>
         {!formValid && (
@@ -183,7 +190,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorName}
                 />
-                <Bar />
+                <Bar invalid={sNError} />
               </InputGroup>
               <InputGroup>
                 <Label>Your Phone Number</Label>
@@ -195,7 +202,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorPhone}
                 />
-                <Bar />
+                <Bar invalid={sPError} />
               </InputGroup>
             </Row>
             <Row>
@@ -209,7 +216,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffName}
                 />
-                <Bar />
+                <Bar invalid={ffNError} />
               </InputGroup>
               <InputGroup>
                 <Label>Friend/Family Phone Number</Label>
@@ -221,7 +228,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffPhone}
                 />
-                <Bar />
+                <Bar invalid={ffPError} />
               </InputGroup>
             </Row>
             <Row>
@@ -231,7 +238,7 @@ class NewConversation extends React.Component {
                   <option value="1">Harassment</option>
                   <option value="2">Rape</option>
                 </Select>
-                <Bar />
+                <Bar invalid={catError} />
               </InputGroup>
             </Row>
             <Row>
