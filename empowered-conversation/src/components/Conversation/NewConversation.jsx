@@ -23,6 +23,10 @@ class NewConversation extends React.Component {
     this.state = {};
   }
 
+  onKeydown = ({ target }) => {
+    const label = target.parentNode.querySelector('label')
+    label.style.display = 'block'
+  }
   render() {
     return (
       <Wrapper>
@@ -31,7 +35,7 @@ class NewConversation extends React.Component {
             <Img src={logo} alt="" />
             <H3>Start a Conversation</H3>
           </FormHeader>
-          <Form>
+          <Form autoComplete="off">
             <Row>
               <InputGroup>
                 <Label>Your Name</Label>
@@ -39,6 +43,7 @@ class NewConversation extends React.Component {
                   type="text"
                   name="survivorName"
                   placeholder="Your Name"
+                  onKeyDown={this.onKeydown}
                 />
                 <Bar />
               </InputGroup>
@@ -48,6 +53,7 @@ class NewConversation extends React.Component {
                   type="tel"
                   name="survivorPhone"
                   placeholder="Your Phone Number"
+                  onKeyDown={this.onKeydown}
                 />
                 <Bar />
               </InputGroup>
@@ -59,6 +65,7 @@ class NewConversation extends React.Component {
                   type="text"
                   name="ffName"
                   placeholder="Friend/Family Name"
+                  onKeyDown={this.onKeydown}
                 />
                 <Bar />
               </InputGroup>
@@ -68,6 +75,7 @@ class NewConversation extends React.Component {
                   type="tel"
                   name="ffPhone"
                   placeholder="Friend/Family Phone Number"
+                  onKeyDown={this.onKeydown}
                 />
                 <Bar />
               </InputGroup>

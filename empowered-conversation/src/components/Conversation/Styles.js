@@ -7,9 +7,7 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-top: 10rem;
 `;
 
 export const Container = styled.div`
@@ -17,10 +15,10 @@ export const Container = styled.div`
   max-width: 50%;
   background: #fff;
   position: relative;
+  margin: auto;
   padding: 10rem 2rem;
   box-shadow: 0 1px 1.5rem rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
-  z-index: 1;
   ${responsiveWidth};
 `;
 
