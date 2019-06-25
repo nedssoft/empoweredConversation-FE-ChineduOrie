@@ -3,9 +3,6 @@ import { flexColum } from '../styled/reusables'
 import { primary } from '../styled/variables'
 
 export const FooterContainer = styled.footer`
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   min-height: 150px;
   background: ${primary};
