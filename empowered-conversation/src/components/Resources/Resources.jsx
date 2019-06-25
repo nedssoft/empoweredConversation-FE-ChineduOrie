@@ -5,6 +5,7 @@ import axios from "axios";
 import { Wrapper, Title, ActionBtn } from "./Styles";
 import Resource from "./Resource";
 import Spinner from "../UI/Spinner/Spinner";
+import Modal from "../UI/Modal/Modal";
 
 const BASE_URL = "https://emp-convo.herokuapp.com";
 class Resources extends React.Component {
@@ -14,7 +15,12 @@ class Resources extends React.Component {
     this.state = {
       resources: [],
       conversationId: "",
-      isLoading: true
+      isLoading: true,
+      modal: {
+        title: "",
+        show: false,
+        message: null
+      }
     };
   }
 
@@ -52,21 +58,53 @@ class Resources extends React.Component {
       .then(() => {
         this.setState(prevState => ({
           ...prevState,
-          isLoading: false
+          isLoading: false,
+          modal: {
+            show: true,
+            message: "The requester has been notified",
+            title: "Success"
+          }
         }));
       })
       .catch(() => {
         this.setState(prevState => ({
           ...prevState,
-          isLoading: false
+          isLoading: false,
+          modal: {
+            show: true,
+            message: "An Error occurred!, please try again",
+            title: "Error"
+          }
         }));
       });
   };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      modal: {
+        show: false,
+        message: "",
+        title: ""
+      }
+    }));
+  };
   render() {
-    const { resources, isLoading } = this.state;
+    const { resources, isLoading, modal } = this.state;
     return (
       <Wrapper>
         {isLoading && <Spinner />}
+        {modal.show && (
+          <Modal
+            show={modal.show}
+            modalTitle={modal.title}
+            modalType="ok"
+            toggle={this.toggleModal}
+            clicked={this.toggleModal}
+          >
+            <p>{modal.message}</p>
+          </Modal>
+        )}
         <Title>
           We have some resources to help you better prepare ahead of the
           conversation
@@ -76,7 +114,7 @@ class Resources extends React.Component {
             <Resource key={res.resourceid} resource={res} />
           ))}
         <ActionBtn onClick={this.notifySurvivor}>
-          I am Ready For the conversation
+          I am Ready for the Conversation
         </ActionBtn>
       </Wrapper>
     );
