@@ -22,3 +22,39 @@ export const Container = styled.div`
   z-index: 1;
   ${responsiveWidth};
 `;
+
+export const Img = styled.img`
+  width: 50px;
+  height: 50px;
+`;
+export const H3 = styled.h3`
+  color: white;
+  font-size: 2.5rem;
+  color: ${primary};
+`;
+export const FormHeader = styled.div`
+  width: 100%;
+  top: 2.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const Form = styled.form`
+  width: 100%;
+  transform: translateY(5rem);
+`;
+export const Row = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+`;
