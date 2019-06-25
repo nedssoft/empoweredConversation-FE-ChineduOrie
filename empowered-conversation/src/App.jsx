@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './components/styled/GlobalStyles';
+import Navigation from './components/Navigation/Navigation'
 
 const AppWrapper = styled.div`
   width: 100%;
@@ -12,7 +13,7 @@ function App() {
     <React.Fragment>
       <GlobalStyle />
       <AppWrapper>
-        <h1>Hello</h1>
+        <Navigation />
       </AppWrapper>
     </React.Fragment>
   );
