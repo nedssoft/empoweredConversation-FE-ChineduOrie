@@ -135,6 +135,8 @@ body {
   height: 100%;
   width: 100vw;
   font-family: Helvetica, San-serif;
+  margin-top: 90px;
+  margin-bottom: 90px;
 }
 button, input {
   outline: none;
