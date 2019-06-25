@@ -41,6 +41,27 @@ class Resources extends React.Component {
       return;
     }
   }
+  notifySurvivor = () => {
+    const { conversationId } = this.state;
+    this.setState(prevState => ({
+      ...prevState,
+      isLoading: true
+    }));
+    axios
+      .delete(`${BASE_URL}/conversations/finished/${conversationId}`)
+      .then(() => {
+        this.setState(prevState => ({
+          ...prevState,
+          isLoading: false
+        }));
+      })
+      .catch(() => {
+        this.setState(prevState => ({
+          ...prevState,
+          isLoading: false
+        }));
+      });
+  };
   render() {
     const { resources, isLoading } = this.state;
     return (
@@ -54,7 +75,9 @@ class Resources extends React.Component {
           resources.map(res => (
             <Resource key={res.resourceid} resource={res} />
           ))}
-        <ActionBtn>I am Ready For the conversation</ActionBtn>
+        <ActionBtn onClick={this.notifySurvivor}>
+          I am Ready For the conversation
+        </ActionBtn>
       </Wrapper>
     );
   }
