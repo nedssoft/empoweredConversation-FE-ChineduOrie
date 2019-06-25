@@ -15,7 +15,7 @@ import {
 
 function Modal({ children, show, toggle, modalTitle, clicked, modalType }) {
   let footerContent = <ContinueBtn onClick={clicked}>Continue</ContinueBtn>;
-  if (!modalType == "ok") {
+  if (!modalType === "ok") {
     footerContent = (
       <React.Fragment>
         <ContinueBtn onClick={clicked}>Continue</ContinueBtn>

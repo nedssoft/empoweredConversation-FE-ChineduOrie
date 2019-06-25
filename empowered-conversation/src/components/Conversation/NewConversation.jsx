@@ -16,6 +16,7 @@ import {
 } from "./Styles";
 
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
+import Modal from "../UI/Modal/Modal";
 
 class NewConversation extends React.Component {
   constructor(props) {
@@ -34,7 +35,10 @@ class NewConversation extends React.Component {
         ffName: "",
         ffPhone: "",
         categoryId: "Select the category of the Assault"
-      }
+      },
+      formValid: true,
+      extractedErrors: null,
+      showErrorModal: false
     };
   }
 
@@ -87,19 +91,44 @@ class NewConversation extends React.Component {
   submitHandler = e => {
     e.preventDefault();
     const { errors } = this.state;
-
     if (!this.checkFormValidity(errors)) {
-      alert(Object.values(errors).join('\n'));
+      const extractedErrors = Object.values(errors).filter(err => err !== "");
+      this.setState(prevState => ({
+        ...prevState,
+        formValid: false,
+        extractedErrors: extractedErrors,
+        showErrorModal: true
+      }));
     } else {
       alert("all good!!!");
     }
   };
+  toggleErrorModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showErrorModal: false
+    }));
+  };
+
   render() {
-    const { form } = this.state;
+    const { form, formValid, showErrorModal, extractedErrors } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone } = form;
 
     return (
       <Wrapper>
+        {!formValid && (
+          <Modal
+            show={showErrorModal}
+            clicked={this.toggleErrorModal}
+            toggle={this.toggleErrorModal}
+            modalType="ok"
+            modalTitle="Error"
+          >
+            {extractedErrors.map(err => (
+              <p key={err} style={{ color: '#D62246'}}>{err}</p>
+            ))}
+          </Modal>
+        )}
         <Container>
           <FormHeader>
             <Img src={logo} alt="" />
