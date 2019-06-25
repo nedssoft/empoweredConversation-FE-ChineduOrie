@@ -13,9 +13,8 @@ import {
   Bar,
   Label,
   Select,
-  Submit
 } from "./Styles";
-
+import {Submit} from '../styled/reusables'
 import Spinner from "../UI/Spinner/Spinner";
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
 import Modal from "../UI/Modal/Modal";
