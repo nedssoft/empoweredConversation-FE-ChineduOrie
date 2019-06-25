@@ -129,20 +129,4 @@ export const Select = styled.select`
 
 `;
 
-export const Submit = styled.button`
-  margin: auto;
-  margin-top: 4rem;
-  width: 18rem;
-  padding: 0.8rem;
-  border-radius: 50px;
-   background-image: linear-gradient(to left, #24b4a5,#20c997 );
-  border: none;
-  font-size: 1.8rem;
-  color: white;
-  cursor: pointer;
-  transition: background-image 650ms ease-in-out, width 650ms;
-  &:hover {
-    background-image: linear-gradient(to right, #24b4a5,#20c997 );
-    width: 20rem;
-  }
-`
+
