@@ -1,4 +1,5 @@
 import React from "react";
+import axios from 'axios'
 import {
   Wrapper,
   Container,
@@ -18,6 +19,7 @@ import {
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
 import Modal from "../UI/Modal/Modal";
 
+const BASE_URL = 'https://emp-convo.herokuapp.com'
 class NewConversation extends React.Component {
   constructor(props) {
     super(props);
@@ -39,10 +41,23 @@ class NewConversation extends React.Component {
       formValid: true,
       extractedErrors: null,
       showErrorModal: false,
-      showConsentModal: false
+      showConsentModal: false,
+      categories: []
     };
-  }
 
+  }
+  componentDidMount() {
+    axios.get(`${BASE_URL}/categories`)
+    .then(res => {
+      this.setState(prevState =>({
+        ...prevState,
+        categories: res.data
+      }))
+    })
+    .catch(() => {
+      return;
+    })
+  }
   inputChangeHandler = e => {
     const { name, value } = e.target;
     const { errors } = this.state;
@@ -121,12 +136,24 @@ class NewConversation extends React.Component {
   };
   submitConversation = () => {
     const { form } = this.state;
-    console.log(form);
-    alert("conversation submitted successfully");
-    this.setState(prevState => ({
+    const { survivorName, survivorPhone, ffName, ffPhone, categoryId } = form;
+    const newConversation = {
+      survivorname: survivorName,
+      survivornumber: survivorPhone,
+      ffname: ffName,
+      ffnumber: ffPhone,
+      category : {
+        categoryid: categoryId
+      }
+    }
+    axios.post(`${BASE_URL}/conversations`, newConversation)
+    .then(() => {
+      this.setState(prevState => ({
       ...prevState,
-      showConsentModal: false
+      showConsentModal: false,
     }));
+    })
+    
   };
   render() {
     const {
@@ -135,7 +162,8 @@ class NewConversation extends React.Component {
       formValid,
       showErrorModal,
       extractedErrors,
-      showConsentModal
+      showConsentModal,
+      categories
     } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone } = form;
     const {
@@ -235,8 +263,9 @@ class NewConversation extends React.Component {
               <InputGroup>
                 <Select onChange={this.inputChangeHandler} name="categoryId">
                   <option value="">Select Category</option>
-                  <option value="1">Harassment</option>
-                  <option value="2">Rape</option>
+                  {categories && categories.map(cat => (
+                    <option value={cat.categoryid} key={cat.categoryid}>{cat.categoryname}</option>
+                  ))}
                 </Select>
                 <Bar invalid={catError} />
               </InputGroup>
