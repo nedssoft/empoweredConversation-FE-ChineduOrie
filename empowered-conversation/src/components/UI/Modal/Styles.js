@@ -110,7 +110,7 @@ export const ContinueBtn = styled(Button)`
   }
 `;
 export const CancelBtn = styled(Button)`
-  background-color: #20c997;
+  background-color: ${danger};
   &:hover {
     background: white;
     color: ${danger};

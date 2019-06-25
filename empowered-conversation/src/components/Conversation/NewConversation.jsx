@@ -38,7 +38,8 @@ class NewConversation extends React.Component {
       },
       formValid: true,
       extractedErrors: null,
-      showErrorModal: false
+      showErrorModal: false,
+      showConsentModal: false
     };
   }
 
@@ -100,7 +101,10 @@ class NewConversation extends React.Component {
         showErrorModal: true
       }));
     } else {
-      alert("all good!!!");
+      this.setState(prevState => ({
+        ...prevState,
+        showConsentModal: true
+      }));
     }
   };
   toggleErrorModal = () => {
@@ -109,9 +113,29 @@ class NewConversation extends React.Component {
       showErrorModal: false
     }));
   };
-
+  toggleConsentModal = () => {
+    this.setState(prevState => ({
+      ...prevState,
+      showConsentModal: false
+    }));
+  };
+  submitConversation = () => {
+    const { form } = this.state;
+    console.log(form)
+    alert("conversation submitted successfully");
+    this.setState(prevState => ({
+      ...prevState,
+      showConsentModal: false
+    }))
+  };
   render() {
-    const { form, formValid, showErrorModal, extractedErrors } = this.state;
+    const {
+      form,
+      formValid,
+      showErrorModal,
+      extractedErrors,
+      showConsentModal
+    } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone } = form;
 
     return (
@@ -125,10 +149,23 @@ class NewConversation extends React.Component {
             modalTitle="Error"
           >
             {extractedErrors.map(err => (
-              <p key={err} style={{ color: '#D62246'}}>{err}</p>
+              <p key={err} style={{ color: "#D62246" }}>
+                {err}
+              </p>
             ))}
           </Modal>
         )}
+        {
+          <Modal
+            show={showConsentModal}
+            clicked={this.submitConversation}
+            toggle={this.toggleConsentModal}
+            modalTitle="Confirmation"
+          >
+            <p>Are you sure you want to submit this conversation request?</p>
+            <p>By Clicking Continue, you agree by the terms and condition</p>
+          </Modal>
+        }
         <Container>
           <FormHeader>
             <Img src={logo} alt="" />

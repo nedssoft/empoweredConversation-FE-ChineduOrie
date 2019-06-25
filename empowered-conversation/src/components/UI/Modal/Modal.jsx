@@ -14,14 +14,15 @@ import {
 } from "./Styles";
 
 function Modal({ children, show, toggle, modalTitle, clicked, modalType }) {
-  let footerContent = <ContinueBtn onClick={clicked}>Continue</ContinueBtn>;
-  if (!modalType === "ok") {
-    footerContent = (
-      <React.Fragment>
-        <ContinueBtn onClick={clicked}>Continue</ContinueBtn>
-        <CancelBtn onClick={toggle}>Cancel</CancelBtn>
-      </React.Fragment>
-    );
+  let footerContent = (
+    <React.Fragment>
+      <ContinueBtn onClick={clicked}>Continue</ContinueBtn>
+      <CancelBtn onClick={toggle}>Cancel</CancelBtn>
+    </React.Fragment>
+  );
+
+  if (modalType === "ok") {
+    footerContent = <ContinueBtn onClick={clicked}>Continue</ContinueBtn>;
   }
   return (
     <React.Fragment>
@@ -41,7 +42,7 @@ Modal.defaultProps = {
   show: false,
   modalTitle: "",
   clicked: () => {},
-  modalType: null,
+  modalType: "confirm"
 };
 Modal.propTypes = {
   children: propTypes.node.isRequired,
@@ -49,6 +50,6 @@ Modal.propTypes = {
   toggle: propTypes.func.isRequired,
   modalTitle: propTypes.string,
   clicked: propTypes.func,
-  modalType: propTypes.string,
+  modalType: propTypes.string
 };
 export default Modal;
