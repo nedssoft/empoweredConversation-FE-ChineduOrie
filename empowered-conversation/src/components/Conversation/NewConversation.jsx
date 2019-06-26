@@ -197,6 +197,8 @@ class NewConversation extends React.Component {
       showSuccessModal: false,
       form: { ...initialForm }
     }));
+    const { history } = this.props
+    history.push('/');
   };
   render() {
     const {
@@ -355,6 +357,7 @@ class NewConversation extends React.Component {
 }
 
 NewConversation.propTypes = {
-  location: propTypes.objectOf(propTypes.any).isRequired
+  location: propTypes.objectOf(propTypes.any).isRequired,
+  history: propTypes.objectOf(propTypes.any).isRequired,
 };
 export default NewConversation;
