@@ -18,7 +18,7 @@ export const transition = css`
 `;
 
 export const background = css`
-  background-image: linear-gradient(
+  background: linear-gradient(
     145deg,
     rgba(36, 180, 165, 1) 0%,
     rgba(143, 237, 194, 1) 100%
@@ -34,6 +34,7 @@ export const responsiveWidth = css`
     max-width: 90%;
   }
 `;
+
 export const CustomNavLink = styled(NavLink)`
   color: ${black_color};
   font-size: 1.6rem;
@@ -49,6 +50,7 @@ export const CustomNavLink = styled(NavLink)`
     border-bottom-width: 100%;
   }
 `;
+
 export const CustomLink = styled(Link)`
   text-decoration: none;
 `;
@@ -61,36 +63,36 @@ const iconStyle = css`
 
 export const SpinnerIcon = styled(FaSpinner)`
   ${iconStyle};
-`
+`;
 export const FacebookIcon = styled(FaFacebookSquare)`
   ${iconStyle};
   &:hover {
-    color     : #3B579D;
+    color: #3b579d;
     ${transition};
   }
-`
+`;
 export const TwitterIcon = styled(FaTwitterSquare)`
   ${iconStyle};
-  &:hover { 
-    color     : #29AAE1;
+  &:hover {
+    color: #29aae1;
     ${transition};
   }
-`
+`;
 
 export const LinkedinIcon = styled(FaLinkedin)`
   ${iconStyle};
   &:hover {
-    color     : #0374B3;
+    color: #0374b3;
     ${transition};
   }
-`
+`;
 export const InstagramIcon = styled(FaInstagram)`
   ${iconStyle};
   &:hover {
-    color     : #BF317D;
+    color: #bf317d;
     ${transition};
   }
-`
+`;
 
 export const flexColum = css`
   display: -webkit-box;
@@ -114,15 +116,14 @@ export const Submit = styled.button`
   width: 18rem;
   padding: 0.8rem;
   border-radius: 50px;
-   background-image: linear-gradient(to left, #24b4a5,#20c997 );
+  background-image: linear-gradient(to left, #24b4a5, #20c997);
   border: none;
   font-size: 1.8rem;
   color: white;
   cursor: pointer;
   transition: background-image 650ms ease-in-out, width 650ms;
   &:hover {
-    background-image: linear-gradient(to right, #24b4a5,#20c997 );
+    background-image: linear-gradient(to right, #24b4a5, #20c997);
     width: 20rem;
   }
-`
-
+`;

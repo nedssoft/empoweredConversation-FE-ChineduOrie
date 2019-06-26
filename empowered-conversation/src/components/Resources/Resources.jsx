@@ -73,8 +73,8 @@ class Resources extends React.Component {
           isLoading: false,
           modal: {
             show: true,
-            message: "An Error occurred!, please try again",
-            title: "Error"
+            message: "The requester has been notified",
+            title: "Success"
           }
         }));
       });
