@@ -12,9 +12,9 @@ import {
   Input,
   Bar,
   Label,
-  Select,
+  Select
 } from "./Styles";
-import {Submit} from '../styled/reusables'
+import { Submit } from "../styled/reusables";
 import Spinner from "../UI/Spinner/Spinner";
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
 import Modal from "../UI/Modal/Modal";
@@ -31,7 +31,7 @@ const initialError = {
   survivorPhone: "",
   ffName: "",
   ffPhone: "",
-  categoryId: "Select the category of the Assault"
+  categoryId: ""
 };
 const BASE_URL = "https://emp-convo.herokuapp.com";
 class NewConversation extends React.Component {
@@ -41,7 +41,7 @@ class NewConversation extends React.Component {
       form: initialForm,
       errors: initialError,
       formValid: true,
-      extractedErrors: ["ensure that all fields are filled"],
+      extractedErrors: [],
       showErrorModal: false,
       showConsentModal: false,
       categories: [],
@@ -65,6 +65,16 @@ class NewConversation extends React.Component {
   }
   inputChangeHandler = e => {
     const { name, value } = e.target;
+    this.validateInput(name, value);
+    this.setState(prevState => ({
+      ...prevState,
+      form: {
+        ...prevState.form,
+        [name]: value
+      }
+    }));
+  };
+  validateInput = (name, value) => {
     const { errors } = this.state;
     switch (name) {
       case "survivorName":
@@ -89,31 +99,29 @@ class NewConversation extends React.Component {
       default:
         break;
     }
-
     this.setState(prevState => ({
       ...prevState,
-      errors,
-      form: {
-        ...prevState.form,
-        [name]: value
-      }
+      errors
     }));
   };
-
-  checkFormValidity = errors => {
+  checkFormValidity = () => {
+    const { form } = this.state;
     let valid = true;
-    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+    Object.values(form).forEach(val => !val.length && (valid = false));
     return valid;
   };
   onKeydown = ({ target }) => {
     const label = target.parentNode.querySelector("label");
     label.style.display = "block";
   };
+
   submitHandler = e => {
     e.preventDefault();
     const { errors } = this.state;
-    if (!this.checkFormValidity(errors)) {
-      const extractedErrors = Object.values(errors).filter(err => err !== "");
+    if (!this.checkFormValidity()) {
+      const extractedErrors = errors.length
+        ? Object.values(errors).filter(err => err !== "")
+        : ["Kindly check that all fields are filled"];
       this.setState(prevState => ({
         ...prevState,
         formValid: false,
@@ -147,7 +155,7 @@ class NewConversation extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       showConsentModal: false,
-      isLoading: true,
+      isLoading: true
     }));
     const { form } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone, categoryId } = form;
@@ -167,7 +175,7 @@ class NewConversation extends React.Component {
           ...prevState,
           successMessage: res.data.ffname,
           showSuccessModal: true,
-          isLoading: false,
+          isLoading: false
         }));
       })
       .catch(err => {
@@ -175,7 +183,7 @@ class NewConversation extends React.Component {
           ...prevState,
           extractedErrors: [err.message],
           showErrorModal: true,
-          isLoading: false,
+          isLoading: false
         }));
       });
   };
@@ -248,13 +256,12 @@ class NewConversation extends React.Component {
             {successMessage && (
               <p>
                 {`${successMessage}
-                  has been notified, you'll be content when
-                he/she is ready for thr conversation`}
+                  has been notified, you'll be contacted when
+                he/she is ready for the conversation`}
               </p>
             )}
           </Modal>
         }
-
         <Container>
           <FormHeader>
             <Img src={logo} alt="" />
