@@ -23,8 +23,8 @@ export const Container = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 55px;
 `;
 export const H3 = styled.h3`
   color: white;
@@ -58,7 +58,7 @@ export const Row = styled.div`
   }
 `;
 export const InputGroup = styled.div`
-  width: 48%;
+  width: ${props => props.width ? props.width : '48%' };
   position: relative;
   @media screen and (max-width: 499px) {
     width: 100%;
