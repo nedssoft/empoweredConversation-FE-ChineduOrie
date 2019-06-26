@@ -216,6 +216,7 @@ class NewConversation extends React.Component {
       ffPhone: ffPError,
       categoryId: catError
     } = errors;
+
     return (
       <Wrapper>
         {isLoading && <Spinner />}
@@ -255,9 +256,12 @@ class NewConversation extends React.Component {
           >
             {successMessage && (
               <p>
-                {`${successMessage}
-                  has been notified, you'll be contacted when
-                he/she is ready for the conversation`}
+                <strong style={{ fontWeight: 600 }}>
+                  {successMessage}
+                  {' '}
+                </strong>
+                has been notified, you will be contacted when he/she is ready
+                for the conversation
               </p>
             )}
           </Modal>
@@ -269,7 +273,7 @@ class NewConversation extends React.Component {
           </FormHeader>
           <Form autoComplete="off" onSubmit={this.submitHandler}>
             <Row>
-              <InputGroup>
+              <InputGroup invalid={sNError}>
                 <Label>Your Name</Label>
                 <Input
                   type="text"
@@ -279,9 +283,9 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorName}
                 />
-                <Bar invalid={sNError} />
+                <Bar />
               </InputGroup>
-              <InputGroup>
+              <InputGroup invalid={sPError}>
                 <Label>Your Phone Number</Label>
                 <Input
                   type="tel"
@@ -291,11 +295,11 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorPhone}
                 />
-                <Bar invalid={sPError} />
+                <Bar />
               </InputGroup>
             </Row>
             <Row>
-              <InputGroup>
+              <InputGroup invalid={ffNError}>
                 <Label>Friend/Family Name</Label>
                 <Input
                   type="text"
@@ -305,9 +309,9 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffName}
                 />
-                <Bar invalid={ffNError} />
+                <Bar />
               </InputGroup>
-              <InputGroup>
+              <InputGroup invalid={ffPError}>
                 <Label>Friend/Family Phone Number</Label>
                 <Input
                   type="tel"
@@ -317,11 +321,12 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffPhone}
                 />
-                <Bar invalid={ffPError} />
+                <Bar />
               </InputGroup>
             </Row>
             <Row>
               <InputGroup width="35%">
+                <Label>Friend/Family Phone Number</Label>
                 <Select onChange={this.inputChangeHandler} name="categoryId">
                   <option value="">Select Category</option>
                   {categories &&

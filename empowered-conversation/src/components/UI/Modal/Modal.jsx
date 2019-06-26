@@ -22,7 +22,7 @@ function Modal({ children, show, toggle, modalTitle, clicked, modalType }) {
   );
 
   if (modalType === "ok") {
-    footerContent = <ContinueBtn onClick={clicked}>Continue</ContinueBtn>;
+    footerContent = <ContinueBtn onClick={clicked}>OK</ContinueBtn>;
   }
   return (
     <React.Fragment>
