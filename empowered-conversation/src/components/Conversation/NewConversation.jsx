@@ -314,7 +314,7 @@ class NewConversation extends React.Component {
               </InputGroup>
             </Row>
             <Row>
-              <InputGroup>
+              <InputGroup width="35%">
                 <Select onChange={this.inputChangeHandler} name="categoryId">
                   <option value="">Select Category</option>
                   {categories &&
