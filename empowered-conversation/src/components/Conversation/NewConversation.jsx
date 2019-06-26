@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import propTypes from "prop-types";
 import {
   Wrapper,
   Container,
@@ -18,6 +19,7 @@ import { Submit } from "../styled/reusables";
 import Spinner from "../UI/Spinner/Spinner";
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
 import Modal from "../UI/Modal/Modal";
+import { primary } from "../styled/variables";
 
 const initialForm = {
   survivorName: "",
@@ -51,6 +53,7 @@ class NewConversation extends React.Component {
     };
   }
   componentDidMount() {
+    const { location } = this.props;
     axios
       .get(`${BASE_URL}/categories`)
       .then(res => {
@@ -60,7 +63,7 @@ class NewConversation extends React.Component {
         }));
       })
       .catch(() => {
-        return;
+        location.reload();
       });
   }
   inputChangeHandler = e => {
@@ -243,7 +246,10 @@ class NewConversation extends React.Component {
             modalTitle="Confirmation"
           >
             <p>Are you sure you want to submit this conversation request?</p>
-            <p>By Clicking Continue, you agree by the terms and condition</p>
+            <p>
+              By Clicking Continue, you agree by the 
+              <span style={{ textDecoration: 'underline', color: primary, cursor: 'pointer'}}> terms and condition</span>
+            </p>
           </Modal>
         }
         {
@@ -326,7 +332,6 @@ class NewConversation extends React.Component {
             </Row>
             <Row>
               <InputGroup width="35%">
-                <Label>Friend/Family Phone Number</Label>
                 <Select onChange={this.inputChangeHandler} name="categoryId">
                   <option value="">Select Category</option>
                   {categories &&
@@ -349,4 +354,7 @@ class NewConversation extends React.Component {
   }
 }
 
+NewConversation.propTypes = {
+  location: propTypes.objectOf(propTypes.any).isRequired
+};
 export default NewConversation;

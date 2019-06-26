@@ -41,7 +41,7 @@ class Resources extends React.Component {
           }));
         })
         .catch(() => {
-          return; //
+          location.reload()
         });
     } catch (err) {
       return;
