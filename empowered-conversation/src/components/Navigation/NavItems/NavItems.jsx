@@ -17,9 +17,6 @@ function NavItems({ flex, location}) {
       {location.pathname.includes("/conversation/resources") && (
         <NavItem link="/conversation/resources">Resources</NavItem>
       )}
-      {location.pathname.includes("/conversation/resources") && (
-        <NavItem link="/conversation/resources">Resources</NavItem>
-      )}
     </Ul>
   );
 }
