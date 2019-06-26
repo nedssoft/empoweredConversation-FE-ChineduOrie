@@ -4,7 +4,8 @@ import {
   FaFacebookSquare,
   FaTwitterSquare,
   FaLinkedin,
-  FaInstagram
+  FaInstagram,
+  FaSpinner
 } from "react-icons/fa";
 import { primary as primary_color, black as black_color } from "./variables";
 
@@ -51,22 +52,25 @@ export const CustomNavLink = styled(NavLink)`
 export const CustomLink = styled(Link)`
   text-decoration: none;
 `;
-const IconStyle = css`
+const iconStyle = css`
   font-size: 6rem;
   color: #fff;
   padding: 0.8rem;
   ${transition};
 `;
 
+export const SpinnerIcon = styled(FaSpinner)`
+  ${iconStyle};
+`
 export const FacebookIcon = styled(FaFacebookSquare)`
-  ${IconStyle};
+  ${iconStyle};
   &:hover {
     color     : #3B579D;
     ${transition};
   }
 `
 export const TwitterIcon = styled(FaTwitterSquare)`
-  ${IconStyle};
+  ${iconStyle};
   &:hover { 
     color     : #29AAE1;
     ${transition};
@@ -74,14 +78,14 @@ export const TwitterIcon = styled(FaTwitterSquare)`
 `
 
 export const LinkedinIcon = styled(FaLinkedin)`
-  ${IconStyle};
+  ${iconStyle};
   &:hover {
     color     : #0374B3;
     ${transition};
   }
 `
 export const InstagramIcon = styled(FaInstagram)`
-  ${IconStyle};
+  ${iconStyle};
   &:hover {
     color     : #BF317D;
     ${transition};
