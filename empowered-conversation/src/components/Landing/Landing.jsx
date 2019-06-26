@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, TextBox, ActionLink } from "./Styles";
+import { Container, TextBox} from "./Styles";
+import { ActionLink } from '../styled/reusables'
 
 export default function NotFound() {
   return (

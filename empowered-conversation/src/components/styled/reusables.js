@@ -7,7 +7,7 @@ import {
   FaInstagram,
   FaSpinner
 } from "react-icons/fa";
-import { primary as primary_color, black as black_color } from "./variables";
+import { primary as primary_color, black as black_color, secondary } from "./variables";
 
 export const transition = css`
   -webkit-transition: all 0.25s ease;
@@ -127,3 +127,9 @@ export const Submit = styled.button`
     width: 20rem;
   }
 `;
+
+export const ActionLink = styled(Link)`
+  margin: 2rem auto;
+  font-size: 2.5rem;
+  color: ${secondary};
+`

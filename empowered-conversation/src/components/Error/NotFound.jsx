@@ -1,5 +1,6 @@
 import React from "react";
 import { Container} from './Styles';
+import { ActionLink } from '../styled/reusables'
 
 export default function NotFound() {
   return (
@@ -10,6 +11,8 @@ export default function NotFound() {
         <span>4</span>
       </h1>
       <p>It Looks Like Someone is Lost!</p>
+
+      <ActionLink to="/">Home</ActionLink>
     </Container>
   );
 }

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { background } from "../styled/reusables";
 import { secondary } from '../styled/variables'
 
@@ -49,8 +48,4 @@ export const TextBox = styled.div`
     width: 100%;
   }
 `;
-export const ActionLink = styled(Link)`
-  margin: 2rem auto;
-  font-size: 2.5rem;
-  color: ${secondary};
-`
+
