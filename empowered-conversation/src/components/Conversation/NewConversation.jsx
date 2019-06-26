@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import propTypes from "prop-types";
 import {
   Wrapper,
   Container,
@@ -12,12 +13,13 @@ import {
   Input,
   Bar,
   Label,
-  Select,
+  Select
 } from "./Styles";
-import {Submit} from '../styled/reusables'
+import { Submit } from "../styled/reusables";
 import Spinner from "../UI/Spinner/Spinner";
 import logo from "../../img/EmpoweredConversation-Logo-Md.png";
 import Modal from "../UI/Modal/Modal";
+import { primary } from "../styled/variables";
 
 const initialForm = {
   survivorName: "",
@@ -31,7 +33,7 @@ const initialError = {
   survivorPhone: "",
   ffName: "",
   ffPhone: "",
-  categoryId: "Select the category of the Assault"
+  categoryId: ""
 };
 const BASE_URL = "https://emp-convo.herokuapp.com";
 class NewConversation extends React.Component {
@@ -41,7 +43,7 @@ class NewConversation extends React.Component {
       form: initialForm,
       errors: initialError,
       formValid: true,
-      extractedErrors: ["ensure that all fields are filled"],
+      extractedErrors: [],
       showErrorModal: false,
       showConsentModal: false,
       categories: [],
@@ -51,6 +53,7 @@ class NewConversation extends React.Component {
     };
   }
   componentDidMount() {
+    const { location } = this.props;
     axios
       .get(`${BASE_URL}/categories`)
       .then(res => {
@@ -60,11 +63,21 @@ class NewConversation extends React.Component {
         }));
       })
       .catch(() => {
-        return;
+        location.reload();
       });
   }
   inputChangeHandler = e => {
     const { name, value } = e.target;
+    this.validateInput(name, value);
+    this.setState(prevState => ({
+      ...prevState,
+      form: {
+        ...prevState.form,
+        [name]: value
+      }
+    }));
+  };
+  validateInput = (name, value) => {
     const { errors } = this.state;
     switch (name) {
       case "survivorName":
@@ -89,31 +102,29 @@ class NewConversation extends React.Component {
       default:
         break;
     }
-
     this.setState(prevState => ({
       ...prevState,
-      errors,
-      form: {
-        ...prevState.form,
-        [name]: value
-      }
+      errors
     }));
   };
-
-  checkFormValidity = errors => {
+  checkFormValidity = () => {
+    const { form } = this.state;
     let valid = true;
-    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+    Object.values(form).forEach(val => !val.length && (valid = false));
     return valid;
   };
   onKeydown = ({ target }) => {
     const label = target.parentNode.querySelector("label");
     label.style.display = "block";
   };
+
   submitHandler = e => {
     e.preventDefault();
     const { errors } = this.state;
-    if (!this.checkFormValidity(errors)) {
-      const extractedErrors = Object.values(errors).filter(err => err !== "");
+    if (!this.checkFormValidity()) {
+      const extractedErrors = errors.length
+        ? Object.values(errors).filter(err => err !== "")
+        : ["Kindly check that all fields are filled"];
       this.setState(prevState => ({
         ...prevState,
         formValid: false,
@@ -147,7 +158,7 @@ class NewConversation extends React.Component {
     this.setState(prevState => ({
       ...prevState,
       showConsentModal: false,
-      isLoading: true,
+      isLoading: true
     }));
     const { form } = this.state;
     const { survivorName, survivorPhone, ffName, ffPhone, categoryId } = form;
@@ -167,7 +178,7 @@ class NewConversation extends React.Component {
           ...prevState,
           successMessage: res.data.ffname,
           showSuccessModal: true,
-          isLoading: false,
+          isLoading: false
         }));
       })
       .catch(err => {
@@ -175,7 +186,7 @@ class NewConversation extends React.Component {
           ...prevState,
           extractedErrors: [err.message],
           showErrorModal: true,
-          isLoading: false,
+          isLoading: false
         }));
       });
   };
@@ -186,6 +197,8 @@ class NewConversation extends React.Component {
       showSuccessModal: false,
       form: { ...initialForm }
     }));
+    const { history } = this.props
+    history.push('/');
   };
   render() {
     const {
@@ -208,6 +221,7 @@ class NewConversation extends React.Component {
       ffPhone: ffPError,
       categoryId: catError
     } = errors;
+
     return (
       <Wrapper>
         {isLoading && <Spinner />}
@@ -234,7 +248,10 @@ class NewConversation extends React.Component {
             modalTitle="Confirmation"
           >
             <p>Are you sure you want to submit this conversation request?</p>
-            <p>By Clicking Continue, you agree by the terms and condition</p>
+            <p>
+              By Clicking Continue, you agree by the 
+              <span style={{ textDecoration: 'underline', color: primary, cursor: 'pointer'}}> terms and condition</span>
+            </p>
           </Modal>
         }
         {
@@ -247,14 +264,16 @@ class NewConversation extends React.Component {
           >
             {successMessage && (
               <p>
-                {`${successMessage}
-                  has been notified, you'll be content when
-                he/she is ready for thr conversation`}
+                <strong style={{ fontWeight: 600 }}>
+                  {successMessage}
+                  {' '}
+                </strong>
+                has been notified, you will be contacted when he/she is ready
+                for the conversation
               </p>
             )}
           </Modal>
         }
-
         <Container>
           <FormHeader>
             <Img src={logo} alt="" />
@@ -262,7 +281,7 @@ class NewConversation extends React.Component {
           </FormHeader>
           <Form autoComplete="off" onSubmit={this.submitHandler}>
             <Row>
-              <InputGroup>
+              <InputGroup invalid={sNError}>
                 <Label>Your Name</Label>
                 <Input
                   type="text"
@@ -272,9 +291,9 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorName}
                 />
-                <Bar invalid={sNError} />
+                <Bar />
               </InputGroup>
-              <InputGroup>
+              <InputGroup invalid={sPError}>
                 <Label>Your Phone Number</Label>
                 <Input
                   type="tel"
@@ -284,11 +303,11 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={survivorPhone}
                 />
-                <Bar invalid={sPError} />
+                <Bar />
               </InputGroup>
             </Row>
             <Row>
-              <InputGroup>
+              <InputGroup invalid={ffNError}>
                 <Label>Friend/Family Name</Label>
                 <Input
                   type="text"
@@ -298,9 +317,9 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffName}
                 />
-                <Bar invalid={ffNError} />
+                <Bar />
               </InputGroup>
-              <InputGroup>
+              <InputGroup invalid={ffPError}>
                 <Label>Friend/Family Phone Number</Label>
                 <Input
                   type="tel"
@@ -310,7 +329,7 @@ class NewConversation extends React.Component {
                   onChange={this.inputChangeHandler}
                   value={ffPhone}
                 />
-                <Bar invalid={ffPError} />
+                <Bar />
               </InputGroup>
             </Row>
             <Row>
@@ -337,4 +356,8 @@ class NewConversation extends React.Component {
   }
 }
 
+NewConversation.propTypes = {
+  location: propTypes.objectOf(propTypes.any).isRequired,
+  history: propTypes.objectOf(propTypes.any).isRequired,
+};
 export default NewConversation;

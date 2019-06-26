@@ -6,6 +6,7 @@ import { Wrapper, Title, ActionBtn } from "./Styles";
 import Resource from "./Resource";
 import Spinner from "../UI/Spinner/Spinner";
 import Modal from "../UI/Modal/Modal";
+import { SpinnerIcon } from "../styled/reusables";
 
 const BASE_URL = "https://emp-convo.herokuapp.com";
 class Resources extends React.Component {
@@ -41,7 +42,7 @@ class Resources extends React.Component {
           }));
         })
         .catch(() => {
-          return; //
+          location.reload();
         });
     } catch (err) {
       return;
@@ -72,8 +73,8 @@ class Resources extends React.Component {
           isLoading: false,
           modal: {
             show: true,
-            message: "An Error occurred!, please try again",
-            title: "Error"
+            message: "The requester has been notified",
+            title: "Success"
           }
         }));
       });
@@ -114,7 +115,7 @@ class Resources extends React.Component {
             <Resource key={res.resourceid} resource={res} />
           ))}
         <ActionBtn onClick={this.notifySurvivor}>
-          I am Ready for the Conversation
+          {isLoading ? <SpinnerIcon /> : "I am Ready for the Conversation"}
         </ActionBtn>
       </Wrapper>
     );

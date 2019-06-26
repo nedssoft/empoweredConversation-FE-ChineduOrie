@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { background, responsiveWidth } from '../styled/reusables'
 import { primary, danger } from '../styled/variables'
 
@@ -7,7 +7,10 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding-top: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const Container = styled.div`
@@ -57,14 +60,6 @@ export const Row = styled.div`
     flex-wrap: wrap;
   }
 `;
-export const InputGroup = styled.div`
-  width: ${props => props.width ? props.width : '48%' };
-  position: relative;
-  @media screen and (max-width: 499px) {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-`;
 
 export const Bar = styled.span`
   position: absolute;
@@ -104,6 +99,23 @@ export const Input = styled.input`
   &::placeholder {
     color: ${primary};
     opacity: 0.3;
+  }
+`;
+export const InputGroup = styled.div`
+  width: ${props => props.width ? props.width : '48%' };
+  position: relative;
+  ${props => {
+    if (props.invalid) {
+      return css`
+      > * {
+        color: ${danger};
+      }
+      `
+    }
+  }}
+  @media screen and (max-width: 499px) {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 `;
 export const Select = styled.select`
