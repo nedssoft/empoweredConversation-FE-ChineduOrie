@@ -11,7 +11,6 @@ export default function NotFound() {
         <span>4</span>
       </h1>
       <p>It Looks Like Someone is Lost!</p>
-
       <ActionLink to="/">Home</ActionLink>
     </Container>
   );
