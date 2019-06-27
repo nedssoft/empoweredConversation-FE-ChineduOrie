@@ -356,8 +356,12 @@ class NewConversation extends React.Component {
   }
 }
 
+NewConversation.defaultProps = {
+  location: {},
+  history: {}
+}
 NewConversation.propTypes = {
-  location: propTypes.objectOf(propTypes.any).isRequired,
-  history: propTypes.objectOf(propTypes.any).isRequired,
+  location: propTypes.objectOf(propTypes.any),
+  history: propTypes.objectOf(propTypes.any)
 };
 export default NewConversation;
