@@ -1,9 +1,9 @@
 {
   "short_name": "Empowered Conversation",
-  "name": "Empowered Conversation",
+  "name": "Empowered Conversation - when word matters most",
   "icons": [
     {
-      "src": "img/favicon.png",
+      "src": "img/pwa-img.png",
       "sizes": "60x60",
       "type": "image/png"
     }
