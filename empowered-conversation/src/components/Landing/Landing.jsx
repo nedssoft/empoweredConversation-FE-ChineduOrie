@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <Container>
       <h1>Empowered Conversation</h1>
-      <h3>When Word Matters</h3>
+      <h3>When Word Matters most</h3>
       <TextBox>
         <p>
           Healing ourselves may be some of the hardest work we do in our lives.
