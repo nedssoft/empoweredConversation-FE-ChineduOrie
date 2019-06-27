@@ -7,7 +7,11 @@ import {
   FaInstagram,
   FaSpinner
 } from "react-icons/fa";
-import { primary as primary_color, black as black_color, secondary } from "./variables";
+import {
+  primary as primary_color,
+  black as black_color,
+  secondary
+} from "./variables";
 
 export const transition = css`
   -webkit-transition: all 0.25s ease;
@@ -113,7 +117,7 @@ export const flexColum = css`
 export const Submit = styled.button`
   margin: auto;
   margin-top: 4rem;
-  width: 18rem;
+  width: 48%;
   padding: 0.8rem;
   border-radius: 50px;
   background-image: linear-gradient(to left, #24b4a5, #20c997);
@@ -124,7 +128,14 @@ export const Submit = styled.button`
   transition: background-image 650ms ease-in-out, width 650ms;
   &:hover {
     background-image: linear-gradient(to right, #24b4a5, #20c997);
-    width: 20rem;
+    width: 55%;
+  }
+  @media (max-width: 500px) {
+    width: 100%;
+    &:hover {
+      background-image: linear-gradient(to right, #24b4a5, #20c997);
+      width: 98%;
+    }
   }
 `;
 
@@ -132,4 +143,4 @@ export const ActionLink = styled(Link)`
   margin: 2rem auto;
   font-size: 2.5rem;
   color: ${secondary};
-`
+`;
