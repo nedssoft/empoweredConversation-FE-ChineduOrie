@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Conversation Component tests should render without crashing 1`] = `
+<styled.div>
+  <Modal
+    clicked={[Function]}
+    modalTitle="Confirmation"
+    modalType="confirm"
+    show={false}
+    toggle={[Function]}
+  >
+    <p>
+      Are you sure you want to submit this conversation request?
+    </p>
+    <p>
+      By Clicking Continue, you agree by the
+      <span
+        style={
+          Object {
+            "color": "#24b4a5",
+            "cursor": "pointer",
+            "textDecoration": "underline",
+          }
+        }
+      >
+         terms and condition
+      </span>
+    </p>
+  </Modal>
+  <Modal
+    clicked={[Function]}
+    modalTitle="Success"
+    modalType="ok"
+    show={false}
+    toggle={[Function]}
+  />
+  <styled.div>
+    <styled.div>
+      <styled.img
+        alt=""
+        src="EmpoweredConversation-Logo-Md.png"
+      />
+      <styled.h3>
+        Start a Conversation
+      </styled.h3>
+    </styled.div>
+    <styled.form
+      autoComplete="off"
+      onSubmit={[Function]}
+    >
+      <styled.div>
+        <styled.div
+          invalid=""
+        >
+          <styled.label>
+            Your Name
+          </styled.label>
+          <styled.input
+            name="survivorName"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Your Name"
+            type="text"
+            value=""
+          />
+          <styled.span />
+        </styled.div>
+        <styled.div
+          invalid=""
+        >
+          <styled.label>
+            Your Phone Number
+          </styled.label>
+          <styled.input
+            name="survivorPhone"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Your Phone Number"
+            type="tel"
+            value=""
+          />
+          <styled.span />
+        </styled.div>
+      </styled.div>
+      <styled.div>
+        <styled.div
+          invalid=""
+        >
+          <styled.label>
+            Friend/Family Name
+          </styled.label>
+          <styled.input
+            name="ffName"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Friend/Family Name"
+            type="text"
+            value=""
+          />
+          <styled.span />
+        </styled.div>
+        <styled.div
+          invalid=""
+        >
+          <styled.label>
+            Friend/Family Phone Number
+          </styled.label>
+          <styled.input
+            name="ffPhone"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Friend/Family Phone Number"
+            type="tel"
+            value=""
+          />
+          <styled.span />
+        </styled.div>
+      </styled.div>
+      <styled.div>
+        <styled.div
+          width="35%"
+        >
+          <styled.select
+            name="categoryId"
+            onChange={[Function]}
+          >
+            <option
+              value=""
+            >
+              Select Category
+            </option>
+          </styled.select>
+          <styled.span
+            invalid=""
+          />
+        </styled.div>
+      </styled.div>
+      <styled.div>
+        <styled.button
+          type="submit"
+        >
+          Continue
+        </styled.button>
+      </styled.div>
+    </styled.form>
+  </styled.div>
+</styled.div>
+`;
