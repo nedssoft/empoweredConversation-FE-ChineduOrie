@@ -134,11 +134,9 @@ export const Select = styled.select`
   &:hover + ${Bar}::before {
     width: 100%;
   }
-
   option {
     padding: 0.8rem 0;
   }
-
 `;
 
 
