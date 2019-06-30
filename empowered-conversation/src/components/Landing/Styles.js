@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { background } from "../styled/reusables";
-import { secondary } from '../styled/variables'
+import { secondary } from "../styled/variables";
 
 export const Container = styled.div`
   ${background};
@@ -10,7 +10,6 @@ export const Container = styled.div`
   margin: auto;
   flex-direction: column;
   justify-content: center;
-  /* padding: 1rem; */
   align-items: center;
   color: #fff;
   h1 {
@@ -28,6 +27,7 @@ export const Container = styled.div`
     text-align: center;
   }
 `;
+
 export const TextBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,4 +48,3 @@ export const TextBox = styled.div`
     width: 100%;
   }
 `;
-
